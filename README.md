@@ -4,10 +4,11 @@ This file is a backup of the commands/pipeline used to analyse soil microbiomes.
 
 Based on QIIME2 documentation and QIIME2 2018.11. This requires installation of QIIME2 and activation (source activate qiime2-2018.11)
 
-PROJECT A
--Input Files: FASTQ data with the Casava 1.8 demultiplexed format, Paired end (2x300bp, Illumina MiSeq). Two files per sample.
+PROJECT A: 16s and ITS V3-V4.
 
-Step 1: Create QIIME2 artifact from FASTQ files. Note that QIIME2 is able to import .fastq.gz files
+Input Files: FASTQ data with the Casava 1.8 demultiplexed format, Paired end (2x300bp, Illumina MiSeq). Two files per sample.
+
+Step 1: Create QIIME2 artifact from FASTQ files (16s). Same command was used for ITS (just changing filenames). Note that QIIME2 is able to import .fastq.gz files
 
 Create manifest file (text file will do) and save it somewhere:
 
