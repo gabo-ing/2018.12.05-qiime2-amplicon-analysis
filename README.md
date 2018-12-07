@@ -23,3 +23,16 @@ Import files:
 
 	qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path (manifest-file) --output-path (filename).qza --input-format PairedEndFastqManifestPhred33
 
+Step 2: Remove 16s primers by trimming, using primer length as reference (Forward 17bp, reverse 21bp). In this case, DADA2 is used. Trunc parameter was set at 240bp. Optional: number of threads
+
+	qiime dada2 denoise-paired --i-demultiplexed-seqs (filename).qza --p-trim-left-f 17 --p-trim-left-r 21 --o-table table-(filename).qza --o-representative-sequences represent-(filename).qza --o-denoising-stats denoising-stats-(filename).qza --p-trunc-len-f 240 --p-trunc-len-r 240 --p-n-threads 6
+
+Step 3: Select reference database for taxonomic analysis and download suitable classifiers. In this case, I used: Silva 132 QIIME-compatible release from https://forum.qiime2.org/t/silva-132-classifiers/3698
+
+Step 4: Perform taxonomic analysis and visualize barplots
+
+	qiime feature-classifier classify-sklearn --i-classifier classifier.qza --i-reads represent-(filename).qza --o-classification taxonomy.qza
+	
+	qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxonomy.qzv
+	
+	qiime taxa barplot --i-table table-(filename).qza --i-taxonomy taxonomy.qza --m-metadata-file metadata.tsv --o-visualization taxa-bar-plots.qzv
