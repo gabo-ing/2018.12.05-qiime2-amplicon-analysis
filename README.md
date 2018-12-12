@@ -29,10 +29,22 @@ Step 2: Remove 16s primers by trimming, using primer length as reference (Forwar
 
 Step 3: Select reference database for taxonomic analysis and download suitable classifiers. In this case, I used: Silva 132 QIIME-compatible release from https://forum.qiime2.org/t/silva-132-classifiers/3698
 
-Step 4: Perform taxonomic analysis and visualize barplots
+Step 4: Perform taxonomic analysis and visualize barplots*
 
 	qiime feature-classifier classify-sklearn --i-classifier classifier.qza --i-reads represent-(filename).qza --o-classification taxonomy.qza
 	
 	qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxonomy.qzv
 	
 	qiime taxa barplot --i-table table-(filename).qza --i-taxonomy taxonomy.qza --m-metadata-file metadata.tsv --o-visualization taxa-bar-plots.qzv
+	
+* To be added: creation of custom classifiers and circumventing QIIME2 issue with space trailing at taxonomy file.
+
+Step 5: Perform Heatmap Analysis
+
+	optional: collapse table to taxonomic level
+	
+	qiime taxa collapse --i-table table.qza --i-taxonomy taxonomy.qza --p-level (1 to 7) --o-collapsed-table table-collapsed.qza
+	
+	qiime feature-table heatmap --i-table taxonomy-collapsed.qza --m-metadata-file (metadata).tsv --m-metadata-column Samplegroup --o-visualization heatmap-euclidean.qzv --p-metric euclidean
+	
+	* distance is optional, I used euclidean
