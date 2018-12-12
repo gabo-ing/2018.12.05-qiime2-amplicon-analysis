@@ -1,0 +1,7 @@
+For determining presence/absence in a per-sample and/or per-group basis:
+
+qiime feature-table presence-absence --i-table table-dada2.qza --o-presence-absence-table test-table-dada2.qzv
+
+biom convert -i feature-table.biom -o feature-table.txt --table-type="OTU table" --to-tsv
+
+this will create a presence/absence table for further analysis (eg: venn diagram)
