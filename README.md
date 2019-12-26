@@ -29,6 +29,16 @@ Step 2: Remove 16s primers by trimming, using primer length as reference: 16s Fo
 
 Step 3: Select reference database for taxonomic analysis and download suitable classifiers. In this case, I used: Silva 132 QIIME-compatible release from https://forum.qiime2.org/t/silva-132-classifiers/3698
 
+*IF required, perform training feature classifier (using Macrogen primers) 
+
+	qiime tools import --type 'FeatureData[Sequence]' --input-path silva_132_99_16S.fna --output-path silva_132_99_16S.qza
+
+	qiime tools import --type 'FeatureData[Taxonomy]' --input-format HeaderlessTSVTaxonomyFormat --input-path taxonomy_all_levels.txt --output-path silva_132_99_16S-taxonomy.qza
+
+	qiime feature-classifier extract-reads --i-sequences silva_132_99_16S.qza --p-f-primer CCTACGGGNGGCWGCAG --p-r-primer GACTACHVGGGTATCTAATCC --o-reads silva_132_99_16S-ref-seqs.qza
+
+	qiime feature-classifier fit-classifier-naive-bayes --i-reference-reads silva_132_99_16S-ref-seqs.qza --i-reference-taxonomy silva_132_99_16S-taxonomy.qza --o-classifier silva_132_99_16S-classifier.qza
+
 Step 4: Perform taxonomic analysis and visualize barplots*
 
 	qiime feature-classifier classify-sklearn --i-classifier classifier.qza --i-reads represent-(filename).qza --o-classification taxonomy.qza
