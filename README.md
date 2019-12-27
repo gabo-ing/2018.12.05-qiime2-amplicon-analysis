@@ -47,6 +47,10 @@ Step 4: Perform taxonomic analysis and visualize barplots*
 	
 	qiime taxa barplot --i-table table-(filename).qza --i-taxonomy taxonomy.qza --m-metadata-file metadata.tsv --o-visualization taxa-bar-plots.qzv
 	
+How to visualize stuff:
+
+	qiime tools view file.qzv
+
 * To be added: creation of custom classifiers and circumventing QIIME2 issue with space trailing at taxonomy file.
 
 Step 5: Perform Heatmap Analysis
