@@ -23,7 +23,19 @@ Import files:
 
 	qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path (manifest-file) --output-path (filename).qza --input-format PairedEndFastqManifestPhred33
 
-Step 2: Remove 16s primers by trimming, using primer length as reference: 16s Forward 17bp, reverse 21bp; ITS2 3F and 4R (20bp and 20bp). In this case, DADA2 is used. Trunc parameter was set at 240bp. Optional: number of threads
+Primers used by Macrogen:
+
+	Amplicon library construction using Macrogen’s default primers:
+	-  16s (V3-V4)
+ 	           Bakt_341F: CCTACGGGNGGCWGCAG
+ 	           Bakt_805R: GACTACHVGGGTATCTAATCC
+	-  ITS2
+	        3F: GCATCGATGAAGAACGCAGC
+	        4R: TCCTCCGCTTATTGATATGC
+
+Step 2: (cutadapt)
+
+Step 3: Remove 16s primers by trimming, using primer length as reference: 16s Forward 17bp, reverse 21bp; ITS2 3F and 4R (20bp and 20bp). In this case, DADA2 is used. Trunc parameter was set at 240bp. Optional: number of threads
 
 	qiime dada2 denoise-paired --i-demultiplexed-seqs (filename).qza --p-trim-left-f 17 --p-trim-left-r 21 --o-table table-(filename).qza --o-representative-sequences represent-(filename).qza --o-denoising-stats denoising-stats-(filename).qza --p-trunc-len-f 240 --p-trunc-len-r 240 --p-n-threads 6
 
